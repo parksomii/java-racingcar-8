@@ -29,7 +29,7 @@ public class OutputView {
         appendAllRoundResults(racingResponseDto.roundResults());
         appendWinners(racingResponseDto.winners());
 
-        System.out.println(stringBuilder.toString());
+        System.out.println(stringBuilder);
         clearStringBuilder();
     }
 
