@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import racingcar.exception.ErrorMessage;
 import racingcar.exception.RacingCarException;
 import racingcar.model.car.Car;
+import racingcar.model.result.RoundResult;
 
 public class Participants {
     private final List<Car> participants;
@@ -28,14 +29,6 @@ public class Participants {
         participants.forEach(Car::move);
     }
 
-    /**
-     * 참가자 자동차들의 리스트를 반환합니다.
-     *
-     * @return 참가자 자동차들의 불변 리스트
-     */
-    public List<Car> getParticipants() {
-        return participants;
-    }
 
     /**
      * 특정 이동 거리를 가진 자동차들을 찾습니다.
@@ -59,6 +52,15 @@ public class Participants {
                 .mapToInt(Car::getMovedDistance)
                 .max()
                 .orElse(0);
+    }
+
+    /**
+     * 참가자들의 라운드 결과를 생성합니다.
+     *
+     * @return 참가자들의 라운드 결과
+     */
+    public RoundResult createRoundResult() {
+        return RoundResult.from(participants);
     }
 
     /**

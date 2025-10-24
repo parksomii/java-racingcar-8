@@ -4,6 +4,7 @@ import java.util.List;
 import racingcar.exception.ErrorMessage;
 import racingcar.exception.RacingCarException;
 import racingcar.model.car.Car;
+import racingcar.model.result.RoundResult;
 
 public class Racing {
     private static final int MAX_RACE_ROUND = 10000;
@@ -35,14 +36,6 @@ public class Racing {
         currentRound++;
     }
 
-    /**
-     * 경주 참가자들을 반환합니다.
-     *
-     * @return 경주 참가자들
-     */
-    public Participants getParticipants() {
-        return participants;
-    }
 
     /**
      * 다음 라운드가 있는지 확인합니다.
@@ -61,6 +54,15 @@ public class Racing {
     public List<Car> getWinners() {
         int maxDistance = participants.getMaxMovedDistance();
         return participants.findCarsWithMovedDistance(maxDistance);
+    }
+
+    /**
+     * 현재 라운드의 결과를 생성합니다.
+     *
+     * @return 현재 라운드의 결과
+     */
+    public RoundResult createCurrentRoundResult() {
+        return participants.createRoundResult();
     }
 
     /**

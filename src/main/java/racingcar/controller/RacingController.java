@@ -36,10 +36,7 @@ public class RacingController {
         Racing racing = initRacing(racingRequest);
 
         List<RoundResult> roundResults = runRacing(racing);
-        List<String> winners = racing.getWinners()
-                .stream()
-                .map(Car::getName)
-                .toList();
+        List<String> winners = getWinnerNames(racing);
 
         outputView.printRacingResponse(new RacingResponseDto(roundResults, winners));
     }
@@ -69,8 +66,30 @@ public class RacingController {
         List<RoundResult> roundResults = new ArrayList<>();
         while (racing.hasNextRound()) {
             racing.executeRound();
-            roundResults.add(RoundResult.from(racing.getParticipants().getParticipants()));
+            roundResults.add(createRoundResult(racing));
         }
         return roundResults;
+    }
+
+    /**
+     * 우승자 이름들을 반환합니다.
+     *
+     * @param racing 경주 객체
+     * @return 우승자 이름들의 리스트
+     */
+    private List<String> getWinnerNames(Racing racing) {
+        return racing.getWinners().stream()
+                .map(Car::getName)
+                .toList();
+    }
+
+    /**
+     * 라운드 결과를 생성합니다.
+     *
+     * @param racing 경주 객체
+     * @return 생성된 라운드 결과
+     */
+    private RoundResult createRoundResult(Racing racing) {
+        return racing.createCurrentRoundResult();
     }
 }
