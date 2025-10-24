@@ -22,21 +22,11 @@ public class ErrorView {
      */
     public void validateInput(String input) {
         if (input == null || input.isEmpty()) {
-            showError(ErrorMessage.EMPTY_INPUT);
             throw new RacingCarException(ErrorMessage.EMPTY_INPUT);
         }
         if (input.isBlank()) {
-            showError(ErrorMessage.BLANK_INPUT);
             throw new RacingCarException(ErrorMessage.BLANK_INPUT);
         }
     }
 
-    /**
-     * 에러 메시지를 콘솔에 출력합니다.
-     *
-     * @param errorMessage 출력할 에러 메시지 enum
-     */
-    private void showError(ErrorMessage errorMessage) {
-        System.out.println(errorMessage.getMessage());
-    }
 }
