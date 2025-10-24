@@ -2,6 +2,10 @@ package racingcar.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import racingcar.dto.RacingRequestDto;
+import racingcar.util.CarNameParser;
+import racingcar.util.RaceRoundParser;
+import racingcar.model.car.Car;
+import java.util.List;
 
 public class InputView {
     private static final String CAR_NAMES_INPUT_MESSAGE = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)";
@@ -24,7 +28,9 @@ public class InputView {
      */
     public RacingRequestDto getRacingRequest() {
         String carNames = getCarNames();
+        validateCarNames(carNames);
         String roundsToRace = getRoundsToRace();
+        validateRoundsToRace(roundsToRace);
         return new RacingRequestDto(carNames, roundsToRace);
     }
 
@@ -50,5 +56,27 @@ public class InputView {
         String roundsToRace = Console.readLine();
         errorView.validateInput(roundsToRace);
         return roundsToRace;
+    }
+
+    /**
+     * 자동차 이름들을 검증합니다.
+     *
+     * @param carNames 검증할 자동차 이름 문자열
+     */
+    private void validateCarNames(String carNames) {
+        List<String> parsedNames = CarNameParser.parseCarName(carNames);
+        List<Car> cars = parsedNames.stream()
+                .map(Car::new)
+                .toList();
+        new racingcar.model.racing.Participants(cars);
+    }
+
+    /**
+     * 시도 횟수를 검증합니다.
+     *
+     * @param roundsToRace 검증할 시도 횟수 문자열
+     */
+    private void validateRoundsToRace(String roundsToRace) {
+        RaceRoundParser.parseRaceRound(roundsToRace);
     }
 }
