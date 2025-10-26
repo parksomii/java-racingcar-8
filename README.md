@@ -31,6 +31,7 @@
 | **F-12** | 입력 파서 모듈 분리  | 입력 검증 및 파싱 로직을 별도 클래스로 분리한다.             |
 | **F-13** | 게임 로직 모듈 분리  | 경주 게임 로직을 별도 클래스로 분리한다.                  |
 | **F-14** | 출력 모듈 분리     | 결과 출력 로직을 별도 클래스로 분리한다.                  |
+| **F-15** | 테스트 코드 작성    | 도메인 로직, 유틸리티, 예외 처리에 대한 포괄적인 테스트를 작성한다.  |
 
 ## 3. 기능 상세 명세
 
@@ -159,6 +160,14 @@
     - 경주 결과 출력
     - 우승자 출력
 
+### **F-15. 테스트 코드 작성**
+
+- **설명**: 도메인 로직, 유틸리티, 예외 처리에 대한 포괄적인 테스트 작성
+- **테스트 범위**:
+    - **도메인 테스트**: Car, Racing, Participants, RoundResult
+    - **유틸리티 테스트**: CarNameParser, RaceRoundParser
+    - **예외 테스트**: RacingCarException
+
 ## 4. 클래스 구조
 
 ```
@@ -228,8 +237,31 @@ jun : -----
 |--------------|--------------------------|---------------------------------|
 | 자동차 이름 5자 초과 | IllegalArgumentException | "[ERROR] 자동차 이름은 5자 이하만 가능합니다." |
 | 빈 자동차 이름     | IllegalArgumentException | "[ERROR] 자동차 이름은 빈 값일 수 없습니다."  |
+| 중복 자동차 이름    | IllegalArgumentException | "[ERROR] 동일한 자동차 이름이 존재합니다."    |
 | 시도 횟수 0 이하   | IllegalArgumentException | "[ERROR] 시도 횟수는 양수여야 합니다."      |
 | 시도 횟수 음수     | IllegalArgumentException | "[ERROR] 시도 횟수는 양수여야 합니다."      |
 | 시도 횟수 숫자 아님  | IllegalArgumentException | "[ERROR] 시도 횟수는 숫자여야 합니다."      |
 | 빈 입력         | IllegalArgumentException | "[ERROR] 입력값이 비어있습니다."          |
 | 공백만 입력       | IllegalArgumentException | "[ERROR] 공백만 입력할 수 없습니다."       |
+
+## 7. 테스트 구조
+
+### **테스트 파일 구조**
+
+```
+src/test/java/racingcar/
+├── ApplicationTest.java                    # 통합 테스트
+├── exception/
+│   └── RacingCarExceptionTest.java         # 예외 클래스 테스트
+├── model/
+│   ├── car/
+│   │   └── CarTest.java                    # 자동차 도메인 테스트
+│   ├── racing/
+│   │   ├── RacingTest.java                 # 경주 게임 테스트
+│   │   └── ParticipantsTest.java           # 참가자 관리 테스트
+│   └── result/
+│       └── RoundResultTest.java            # 라운드 결과 테스트
+└── util/
+    ├── CarNameParserTest.java              # 자동차 이름 파서 테스트
+    └── RaceRoundParserTest.java            # 라운드 수 파서 테스트
+```
