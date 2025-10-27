@@ -6,6 +6,7 @@ import racingcar.exception.RacingCarException;
 public class RaceRoundParser {
 
     private static final int MIN_ROUND_COUNT = 1;
+    private static final int MAX_ROUND_COUNT = 10000;
 
     /**
      * 문자열로 입력된 라운드 수를 파싱합니다.
@@ -51,13 +52,13 @@ public class RaceRoundParser {
     }
 
     /**
-     * 라운드 수가 최소값 이상인지 검증합니다.
+     * 라운드 수가 허용된 범위 내에 있는지 검증합니다.
      *
      * @param rounds 검증할 라운드 수
-     * @throws RacingCarException 라운드 수가 최소값 미만인 경우
+     * @throws RacingCarException 라운드 수가 범위를 벗어난 경우
      */
     private static void validateRoundCount(int rounds) {
-        if (rounds < MIN_ROUND_COUNT) {
+        if (rounds < MIN_ROUND_COUNT || rounds > MAX_ROUND_COUNT) {
             throw new RacingCarException(ErrorMessage.RACE_ROUND_OUT_OF_BOUND);
         }
     }
