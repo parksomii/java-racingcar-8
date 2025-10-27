@@ -16,19 +16,19 @@ public class RaceRoundParser {
      * @throws RacingCarException 입력이 유효하지 않은 경우
      */
     public static int parseRaceRound(String rawRoundsToRace) {
+        validateInput(rawRoundsToRace);
         String trimmedInput = rawRoundsToRace.trim();
-        validateInput(trimmedInput);
         return parseInteger(trimmedInput);
     }
 
     /**
      * 입력값의 기본 유효성을 검증합니다.
      *
-     * @param trimmedInput 공백이 제거된 입력 문자열
+     * @param rawInput 원본 입력 문자열
      * @throws RacingCarException 입력이 null이거나 공백인 경우
      */
-    private static void validateInput(String trimmedInput) {
-        if (trimmedInput == null || trimmedInput.isBlank()) {
+    private static void validateInput(String rawInput) {
+        if (rawInput == null || rawInput.isBlank()) {
             throw new RacingCarException(ErrorMessage.EMPTY_INPUT);
         }
     }
