@@ -241,6 +241,7 @@ jun : -----
 | 시도 횟수 0 이하   | IllegalArgumentException | "[ERROR] 시도 횟수는 양수여야 합니다."      |
 | 시도 횟수 음수     | IllegalArgumentException | "[ERROR] 시도 횟수는 양수여야 합니다."      |
 | 시도 횟수 숫자 아님  | IllegalArgumentException | "[ERROR] 시도 횟수는 숫자여야 합니다."      |
+| 시도 횟수 범위 초과   | IllegalArgumentException | "[ERROR] 시도 횟수가 정수 범위를 초과했습니다." |
 | 빈 입력         | IllegalArgumentException | "[ERROR] 입력값이 비어있습니다."          |
 | 공백만 입력       | IllegalArgumentException | "[ERROR] 공백만 입력할 수 없습니다."       |
 
