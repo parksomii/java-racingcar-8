@@ -7,7 +7,6 @@ public enum ErrorMessage {
     DUPLICATED_CAR_NAME("[ERROR] 동일한 자동차 이름이 존재합니다."),
     INVALID_NUMBER_FORMAT("[ERROR] 시도 횟수는 숫자여야 합니다."),
     RACE_ROUND_OUT_OF_BOUND("[ERROR] 시도 횟수는 1~10000 사이의 양수여야 합니다."),
-    INTEGER_RANGE_EXCEEDED("[ERROR] 시도 횟수가 정수 범위를 초과했습니다."),
     EMPTY_INPUT("[ERROR] 입력값이 비어있습니다."),
     BLANK_INPUT("[ERROR] 공백만 입력할 수 없습니다.");
 

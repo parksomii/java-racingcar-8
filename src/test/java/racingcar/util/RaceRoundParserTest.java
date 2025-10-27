@@ -55,7 +55,7 @@ class RaceRoundParserTest {
     }
 
     @Test
-    @DisplayName("정수 범위를 초과하는 입력 시 적절한 예외 메시지가 발생한다")
+    @DisplayName("정수 범위를 초과하는 입력 시 범위 초과 예외가 발생한다")
     void parseIntegerRangeExceeded() {
         // given
         String exceededInput = "9999999999999999";
@@ -63,7 +63,7 @@ class RaceRoundParserTest {
         // when & then
         assertThatThrownBy(() -> RaceRoundParser.parseRaceRound(exceededInput))
                 .isInstanceOf(RacingCarException.class)
-                .hasMessage("[ERROR] 시도 횟수가 정수 범위를 초과했습니다.");
+                .hasMessage("[ERROR] 시도 횟수는 1~10000 사이의 양수여야 합니다.");
     }
 
     @ParameterizedTest

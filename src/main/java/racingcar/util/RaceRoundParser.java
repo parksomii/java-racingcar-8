@@ -72,7 +72,7 @@ public class RaceRoundParser {
     private static void handleNumberFormatException(String input) {
         try {
             Long.parseLong(input);
-            throw new RacingCarException(ErrorMessage.INTEGER_RANGE_EXCEEDED);
+            throw new RacingCarException(ErrorMessage.RACE_ROUND_OUT_OF_BOUND);
         } catch (NumberFormatException longException) {
             throw new RacingCarException(ErrorMessage.INVALID_NUMBER_FORMAT);
         }
