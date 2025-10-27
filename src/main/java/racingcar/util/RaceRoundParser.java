@@ -26,7 +26,13 @@ public class RaceRoundParser {
             }
             return rounds;
         } catch (NumberFormatException e) {
-            throw new RacingCarException(ErrorMessage.INVALID_NUMBER_FORMAT);
+            // 정수 범위 초과인지 확인
+            try {
+                Long.parseLong(rawRoundsToRace.trim());
+                throw new RacingCarException(ErrorMessage.INTEGER_RANGE_EXCEEDED);
+            } catch (NumberFormatException longException) {
+                throw new RacingCarException(ErrorMessage.INVALID_NUMBER_FORMAT);
+            }
         }
     }
 }
