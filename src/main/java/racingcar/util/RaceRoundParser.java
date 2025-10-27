@@ -15,24 +15,65 @@ public class RaceRoundParser {
      * @throws RacingCarException 입력이 유효하지 않은 경우
      */
     public static int parseRaceRound(String rawRoundsToRace) {
-        if (rawRoundsToRace == null || rawRoundsToRace.isBlank()) {
+        String trimmedInput = rawRoundsToRace.trim();
+        validateInput(trimmedInput);
+        return parseInteger(trimmedInput);
+    }
+
+    /**
+     * 입력값의 기본 유효성을 검증합니다.
+     *
+     * @param trimmedInput 공백이 제거된 입력 문자열
+     * @throws RacingCarException 입력이 null이거나 공백인 경우
+     */
+    private static void validateInput(String trimmedInput) {
+        if (trimmedInput == null || trimmedInput.isBlank()) {
             throw new RacingCarException(ErrorMessage.EMPTY_INPUT);
         }
+    }
 
+    /**
+     * 문자열을 정수로 파싱하고 유효성을 검증합니다.
+     *
+     * @param trimmedInput 공백이 제거된 입력 문자열
+     * @return 파싱된 정수 값
+     * @throws RacingCarException 파싱 실패 또는 범위 초과 시
+     */
+    private static int parseInteger(String trimmedInput) {
         try {
-            int rounds = Integer.parseInt(rawRoundsToRace.trim());
-            if (rounds < MIN_ROUND_COUNT) {
-                throw new RacingCarException(ErrorMessage.RACE_ROUND_OUT_OF_BOUND);
-            }
+            int rounds = Integer.parseInt(trimmedInput);
+            validateRoundCount(rounds);
             return rounds;
         } catch (NumberFormatException e) {
-            // 정수 범위 초과인지 확인
-            try {
-                Long.parseLong(rawRoundsToRace.trim());
-                throw new RacingCarException(ErrorMessage.INTEGER_RANGE_EXCEEDED);
-            } catch (NumberFormatException longException) {
-                throw new RacingCarException(ErrorMessage.INVALID_NUMBER_FORMAT);
-            }
+            handleNumberFormatException(trimmedInput);
+            return 0;
+        }
+    }
+
+    /**
+     * 라운드 수가 최소값 이상인지 검증합니다.
+     *
+     * @param rounds 검증할 라운드 수
+     * @throws RacingCarException 라운드 수가 최소값 미만인 경우
+     */
+    private static void validateRoundCount(int rounds) {
+        if (rounds < MIN_ROUND_COUNT) {
+            throw new RacingCarException(ErrorMessage.RACE_ROUND_OUT_OF_BOUND);
+        }
+    }
+
+    /**
+     * NumberFormatException 발생 시 정수 범위 초과인지 구분하여 처리합니다.
+     *
+     * @param input 파싱에 실패한 입력 문자열
+     * @throws RacingCarException 정수 범위 초과 또는 숫자가 아닌 경우
+     */
+    private static void handleNumberFormatException(String input) {
+        try {
+            Long.parseLong(input);
+            throw new RacingCarException(ErrorMessage.INTEGER_RANGE_EXCEEDED);
+        } catch (NumberFormatException longException) {
+            throw new RacingCarException(ErrorMessage.INVALID_NUMBER_FORMAT);
         }
     }
 }
