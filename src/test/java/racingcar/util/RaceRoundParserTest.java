@@ -38,7 +38,7 @@ class RaceRoundParserTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"", "   ", "abc", "5.5", "0", "-1"})
+    @ValueSource(strings = {"", "   ", "abc", "5.5", "0", "-1", "10001"})
     @DisplayName("유효하지 않은 입력일 때 예외가 발생한다")
     void parseInvalidInput(String invalidInput) {
         // when & then
@@ -64,5 +64,16 @@ class RaceRoundParserTest {
         assertThatThrownBy(() -> RaceRoundParser.parseRaceRound(exceededInput))
                 .isInstanceOf(RacingCarException.class)
                 .hasMessage("[ERROR] 시도 횟수가 정수 범위를 초과했습니다.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 10000})
+    @DisplayName("경계값 라운드 수를 파싱할 수 있다")
+    void parseBoundaryRoundNumbers(int roundNumber) {
+        // when
+        int parsedRound = RaceRoundParser.parseRaceRound(String.valueOf(roundNumber));
+
+        // then
+        assertThat(parsedRound).isEqualTo(roundNumber);
     }
 }

@@ -2,16 +2,12 @@ package racingcar.model.racing;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-import racingcar.exception.RacingCarException;
 import racingcar.model.car.Car;
 import racingcar.model.result.RoundResult;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class RacingTest {
 
@@ -29,17 +25,6 @@ class RacingTest {
         assertThat(racing.hasNextRound()).isTrue();
     }
 
-    @ParameterizedTest
-    @ValueSource(ints = {0, -1, 10001})
-    @DisplayName("유효하지 않은 라운드 수일 때 예외가 발생한다")
-    void createRacingWithInvalidRounds(int invalidRounds) {
-        // given
-        List<Car> cars = List.of(new Car("pobi"));
-
-        // when & then
-        assertThatThrownBy(() -> Racing.from(cars, invalidRounds))
-                .isInstanceOf(RacingCarException.class);
-    }
 
     @Test
     @DisplayName("라운드를 실행할 수 있다")
